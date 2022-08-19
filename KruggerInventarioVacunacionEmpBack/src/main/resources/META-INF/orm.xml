@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <entity class="com.model.Empleado">
+        <named-native-query name="Empleado.listAllDatesEmpleados" result-set-mapping="listAllDatesEmpleados">
+            <query>
+                select u.id_usuario idUsuario, u.apellidos, u.cedula, u.direccion, u.email, u.fecha_nacimiento as fechaNacimiento, u.nombre_usuario as nombreUsuario, u."password", 
+                u.nombres, e.id_empleado as idEmpleado, e.estado_vacunacion as estadoVacunacion, e.salario, e.tipo, e.estado
+                from usuario u join empleado e
+                ON u.id_usuario = e.id_empleado
+                WHERE e.estado = 'a' 
+                ORDER  BY  1 DESC
+            </query>
+        </named-native-query>
+        
+        <named-native-query name="Empleado.getDatosDeUnEmpleado" result-set-mapping="getDatosDeUnEmpleado">
+            <query>
+                select u.id_usuario idUsuario, u.apellidos, u.cedula, u.direccion, u.email, u.fecha_nacimiento as fechaNacimiento, u.nombre_usuario as nombreUsuario, u."password", 
+                u.nombres, e.id_empleado as idEmpleado, e.estado_vacunacion as estadoVacunacion, e.salario, e.tipo, e.estado
+                from usuario u join empleado e
+                ON u.id_usuario = e.id_empleado
+                WHERE e.estado = 'a' and u.nombre_usuario = :username
+            </query>
+        </named-native-query>
+    </entity>
+</entity-mappings>

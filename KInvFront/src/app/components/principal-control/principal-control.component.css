@@ -1,0 +1,10 @@
+.inputText {
+  margin: 25px ;
+  /* display: -webkit-inline-box; */
+}
+
+.inputText input {
+  display: flex;
+  margin-bottom: 20px;
+  flex-direction: row;
+}

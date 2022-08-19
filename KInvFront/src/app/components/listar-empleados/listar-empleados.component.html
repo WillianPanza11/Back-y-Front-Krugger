@@ -1,0 +1,111 @@
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text">
+</p-confirmDialog>
+<p-table #dt1 [value]="listEmpleado" dataKey="id" responsiveLayout="scroll" [lazy]="true"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" (onRowSelect)="onRowSelect($event)"
+  [globalFilterFields]="['cedula']">
+
+  <ng-template pTemplate="caption">
+    <div class="flex">
+      <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>
+      <span class="p-input-icon-left ml-auto">
+        <i class="pi pi-search"></i>
+        <input pInputText type="text" (input)="dt1.filterGlobal($any($event.target).value, 'contains')"
+          placeholder="Buscar" />
+      </span>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="header">
+    <tr>
+      <th>CÉDULA
+        <p-columnFilter type="text" field="cedula" display="menu"></p-columnFilter>
+      </th>
+      <th>NOMBRE</th>
+      <th>APELLIDO</th>
+      <th>TIPO</th>
+      <th>DIRECCION</th>
+      <th>ESTADO VACUNACIÓN</th>
+      <th>FECHA NACIMIENTO</th>
+      <th>NOMBRE USUARIO Y CONTRASEÑA</th>
+      <th>CORREO</th>
+      <th>ELIMINAR</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-data>
+    <tr>
+      <td pEditableColumn>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText type="text" pKeyFilter="int" [(ngModel)]="data.cedula" (keypress)="keyPress($event)"
+              (keydown.enter)="editarDatosEmpleado($event,data)" maxlength="10">
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{data.cedula}}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td pEditableColumn>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText type="text" pKeyFilter="int" [(ngModel)]="data.nombres" (keypress)="validarLetras($event)"
+              (keydown.enter)="editarDatosEmpleado($event,data)" maxlength="60">
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{data.nombres}}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td pEditableColumn>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText type="text" pKeyFilter="int" [(ngModel)]="data.apellidos"
+              (keypress)="validarLetras($event)" (keydown.enter)="editarDatosEmpleado($event,data)" maxlength="60">
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{data.apellidos}}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td pEditableColumn>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText type="text" pKeyFilter="int" [(ngModel)]="data.tipo" (keypress)="validarLetras($event)"
+              (keydown.enter)="editarDatosEmpleado($event,data)" maxlength="60">
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{data.tipo}}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td pEditableColumn>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText type="text" pKeyFilter="int" [(ngModel)]="data.direccion"
+              (keypress)="validarLetras($event)" (keydown.enter)="editarDatosEmpleado($event,data)" maxlength="60">
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{data.direccion}}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td>{{data.estadoVacunacion}}</td>
+      <td>{{data.fechaNacimiento}}</td>
+      <td>{{data.nombreUsuario}}</td>
+      <td pEditableColumn>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText type="text" pKeyFilter="int" [(ngModel)]="data.email" (keypress)="validarCarecteresEspeciales($event)"
+              (keydown.enter)="editarDatosEmpleado($event,data)" maxlength="100">
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{data.email}}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td style="text-align:center">
+        <button pButton pRipple type="button" icon="pi pi-times" (click)="ConfirmacionEliminarEmpleado(data)"
+          class="p-button-rounded p-button-text p-button-danger"></button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

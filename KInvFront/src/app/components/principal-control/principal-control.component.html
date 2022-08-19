@@ -1,0 +1,45 @@
+<app-header></app-header>
+<p-toast></p-toast>
+<h2>Bienvenido {{nombreUsuario}}</h2>
+<div *ngIf="isAdmin; else elseBlock">
+  <p-megaMenu [model]="items"></p-megaMenu>
+  <div *ngIf="visible">
+    <app-listar-empleados></app-listar-empleados>
+  </div>
+</div>
+<ng-template #elseBlock>
+  <app-seccion-empleado></app-seccion-empleado>
+</ng-template>
+
+<p-dialog [(visible)]="editDialog" [style]="{width: '450px'}" header="CREAR EMPLEADO" [modal]="true"
+  styleClass="p-fluid">
+  <ng-template pTemplate="content">
+    <div class="inputText">
+      <span class="p-float-label">
+        <input id="float-input" type="text" pInputText [(ngModel)]="nuevoUsuario.cedula" maxlength="10"
+        (keypress)="validarNumeros($event)">
+        <label for="float-input">Cédula</label>
+      </span>
+      <span class="p-float-label">
+        <input id="float-input" type="text" pInputText [(ngModel)]="nuevoUsuario.nombres" maxlength="60"
+        (keypress)="validarLetras($event)">
+        <label for="float-input">Nombres</label>
+      </span>
+      <span class="p-float-label">
+        <input id="float-input" type="text" pInputText [(ngModel)]="nuevoUsuario.apellidos" maxlength="60"
+        (keypress)="validarLetras($event)">
+        <label for="float-input">Apellidos</label>
+      </span>
+      <span class="p-float-label">
+        <input id="float-input" type="text" pInputText [(ngModel)]="nuevoUsuario.email" maxlength="60"
+        (keypress)="validarCarecteresEspeciales($event)">
+        <label for="float-input">Correo</label>
+      </span>
+    </div>
+
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="CANCELAR" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+    <button pButton pRipple label="CREAR" icon="pi pi-check" class="p-button-text" (click)="registraPersona()"></button>
+  </ng-template>
+</p-dialog>

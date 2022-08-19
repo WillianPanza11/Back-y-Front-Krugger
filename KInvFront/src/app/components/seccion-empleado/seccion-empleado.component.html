@@ -1,0 +1,117 @@
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text">
+</p-confirmDialog>
+<p-button class="button" label="Editar Datos" icon="pi pi-user" styleClass="p-button" (click)="showDialogEdit()"></p-button>
+<p-table #dt1 [value]="listEmpleado" dataKey="id" responsiveLayout="scroll" [lazy]="true">
+
+  <ng-template pTemplate="header">
+    <tr>
+      <th>CÉDULA</th>
+      <th>NOMBRE</th>
+      <th>APELLIDO</th>
+      <th>TIPO</th>
+      <th>DIRECCION</th>
+      <th>ESTADO VACUNACIÓN</th>
+      <th>FECHA NACIMIENTO</th>
+      <th>NOMBRE USUARIO</th>
+      <th>CORREO</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-data>
+    <tr>
+      <td>
+        {{data.cedula}}
+      </td>
+      <td pEditableColumn>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText type="text" pKeyFilter="int" [(ngModel)]="data.nombres" (keypress)="validarLetras($event)"
+              (keydown.enter)="editarDatosEmpleado($event,data)" maxlength="60">
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{data.nombres}}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td pEditableColumn>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText type="text" pKeyFilter="int" [(ngModel)]="data.apellidos"
+              (keypress)="validarLetras($event)" (keydown.enter)="editarDatosEmpleado($event,data)" maxlength="60">
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{data.apellidos}}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td pEditableColumn>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText type="text" pKeyFilter="int" [(ngModel)]="data.tipo" (keypress)="validarLetras($event)"
+              (keydown.enter)="editarDatosEmpleado($event,data)" maxlength="60">
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{data.tipo}}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td pEditableColumn>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText type="text" [(ngModel)]="data.direccion"
+              (keypress)="validarLetras($event)" (keydown.enter)="editarDatosEmpleado($event,data)" maxlength="60">
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{data.direccion}}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td>{{data.estadoVacunacion}}</td>
+      <td>{{objePersona.fechaNacimiento}}</td>
+      <td>{{data.nombreUsuario}}</td>
+      <td pEditableColumn>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText type="text" pKeyFilter="int" [(ngModel)]="data.email"
+              (keypress)="validarCarecteresEspeciales($event)" (keydown.enter)="editarDatosEmpleado($event,data)"
+              maxlength="100">
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{data.email}}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-dialog [(visible)]="editDialog" [style]="{width: '500px', height:'700px'}" header="LLENAR DATOS FALTANTES"
+  [modal]="true" styleClass="p-fluid">
+  <ng-template pTemplate="content">
+    <form [formGroup]="formDatosEmpleado">
+      <div class="inputText">
+        <span class="p-float-label">
+          <!-- <input id="float-input" type="text" pInputText [(ngModel)]="objePersona.fechaNacimiento" formControlName="fechaNacimiento"> -->
+          <p-calendar inputId="calendar" [(ngModel)]="objePersona.fechaNacimiento" formControlName="fechaNacimiento"></p-calendar>
+          <label for="calendar">Fecha Nacimiento</label>
+        </span>
+        <br>
+        <span class="p-float-label">
+          <input id="float-input" type="text" pInputText [(ngModel)]="objePersona.direccion" formControlName="direccion"
+          (keypress)="validarCarecteresEspeciales($event)">
+          <label for="float-input">Dirección domicilio</label>
+        </span>
+        <span class="p-float-label">
+          <p-dropdown [autoDisplayFirst]="false" [options]="estadoVacunacion" optionLabel="name"
+            [(ngModel)]="objePersona.estadoVacunacion" formControlName="estadoVacunacion"></p-dropdown>
+          <label for="dropdown">Estado de Vacunación</label>
+        </span>
+        <br>
+      </div>
+    </form>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="CANCELAR" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+    <button pButton pRipple label="ACTUALIZAR" icon="pi pi-check" class="p-button-text"
+      (click)="ActulizarDatosVacuna()"></button>
+  </ng-template>
+</p-dialog>

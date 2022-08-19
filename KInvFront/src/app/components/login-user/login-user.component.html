@@ -1,0 +1,38 @@
+<p-toast></p-toast>
+<div class="text-center" *ngIf="isLogged; else loggedOut">
+  <h2>Ya has iniciado sesión</h2>
+  <button (click)="volverControl()">Volver</button>
+</div>
+<ng-template #loggedOut>
+  <div class="container mt-5">
+    <p-panel header="INICIAR SESIÓN">
+      <div class="login-card">
+        <form [formGroup]="formLogin" novalidate>
+          <div class="p-fluid grid formgrid">
+            <div class="field col-12 md:col-4">
+              <h5>Ingrese sus credenciales</h5>
+              <div class="field">
+                <label for="username1" class="block">Nombre de usuario *</label>
+                <input id="username1" type="username" aria-describedby="username1-help" pInputText
+                  [(ngModel)]="loginUsuario.nombreUsuario" formControlName="nombreUsuario" mb-3 maxlength="60"  (keypress)="validarCarecteresEspeciales($event)"/>
+              </div>
+            </div>
+            <br>
+            <div class="field col-12 md:col-4 mt-4">
+              <label for="username1" class="block">Contraseña *</label>
+              <p-password [(ngModel)]="loginUsuario.password" [feedback]="false" formControlName="password" maxlength="50" (keypress)="validarCarecteresEspeciales($event)">
+              </p-password>
+            </div>
+              <div class="col-12 md:col-2">
+                <p-button class="button" label="Iniciar Sesión" icon="pi pi-user" styleClass="p-button" (onClick)="onLogin()"></p-button>
+              </div>
+              <div class="col-12 md:col-2">
+                <!-- <p-button class="button" label="Normal" icon="pi pi-check" styleClass="p-button"></p-button> -->
+              </div>
+
+          </div>
+        </form>
+      </div>
+    </p-panel>
+  </div>
+</ng-template>

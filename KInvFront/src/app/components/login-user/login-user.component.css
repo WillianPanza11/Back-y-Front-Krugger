@@ -1,0 +1,22 @@
+.login-card {
+  border-top: 8px solid #1E88E5;
+  margin: 0 auto;
+  margin-top: 50px;
+  line-height: 1.5;
+  color: #727272;
+  box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 1px 3px 0 rgb(0 0 0 / 12%);
+}
+
+.container {
+  width: 600px;
+  /*centrar el contenedor*/
+  margin: 0 auto;
+}
+
+.button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 30%;
+  margin: 5px auto;
+}
