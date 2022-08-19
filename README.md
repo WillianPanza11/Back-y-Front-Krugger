@@ -27,7 +27,7 @@ para ejecutar Swagger en el Fronted: 1. cd .\src\app\
 =================================================================================================================================================================
 FRONT ANGULAR
 1. Iniciar el BackEnd
-2. Ejecutar el programa
+2. Abril el programa "KInvFront" angular seguido de "npm install", ejecutar el proyecto "KInvFront" con "ng serve"
 3. Iniciar sesión con "admin" para usuario y contraseña
 4. para crear un nuevo Empleado clic en nuevo usuario
 5. llenar los campos con los datos del nuevo usuario
